@@ -2,7 +2,7 @@
 ![GeoGab Logo](./images/GeoGab.svg)
 
 # Gabriel A. Sieben (Physicist)
-Here is a little code I wrote for my projects. I thought it could be useful for others too. Have fun. Gabriel :)
+Here is a little code I wrote for my HomeDev Smarthings projects. I thought it could be useful for others too. Have fun. Gabriel :)
 
 # Runtime Meter V 1.0.0
 The **RuntimeMeter** measures the runtime of certain sections of the code of a loop. The sections can be defined freely. This is used to estimate the utilization of the CPU. The word estimation means that there can never be a perfect measurement of the code runtime. (Special code excepted.). Only `if()` conditions cause slight runtime differences. The measurement is to be regarded therefore as exact, but not as precise. Because by nature there are runtime fluctuations in every loop pass. 
