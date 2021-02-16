@@ -1,6 +1,6 @@
 {
   "name": "GeoGab RuntimeMeter",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Measures the runtime of different program parts and core codes of a microprocessor to estimate its utilization.",
   "keywords": ["runtime", "meter", "CPU load", "cpuload", "idle time", "idletime", "code analysis", "measurement"],
   "repository":
@@ -25,6 +25,7 @@
   "license": "MIT",
   "homepage": "http://www.geogab.net",
   "dependencies": {
+	"bblanchon/ArduinoJson": "^6.17.2"
   },
   "frameworks": "arduino",
   "platforms": ["espressif8266" , "espressif32"]
