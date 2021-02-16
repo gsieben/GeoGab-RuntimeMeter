@@ -1,20 +1,32 @@
 {
   "name": "GeoGab RuntimeMeter",
-  "description": "GeoGab Runtime Meter: Measures the runtime of different program parts and core codes of a microprocessor to estimate its utilization.",
-  "keywords": "runtime meter CPU load cpuload idle time idletime code analysis measurement",
-  "authors": {
-    "name": "Gabriel A. Sieben",
-    "url": "https://github.com/gsieben",
-    "maintainer": true
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/gsieben/xxxxxxxxx"
-  },
   "version": "1.0.0",
-  "framework": "arduino",
-  "platforms": "*",
-  "build": {
-    "libArchive": false
-  }
+  "description": "Measures the runtime of different program parts and core codes of a microprocessor to estimate its utilization.",
+  "keywords": "runtime meter CPU load cpuload idle time idletime code analysis measurement",
+  "repository":
+  {
+    "type": "git",
+    "url": "https://github.com/gsieben/GeoGab-RuntimeMeter.git"
+  },
+  "authors":
+  [
+    {
+      "name": "Gabriel A. Sieben",
+      "email": "gsieben@geogab.net",
+      "url": "http://www.sieben.cl"
+    },
+    {
+      "name": "Gabriel A. Sieben",
+      "email": "gsieben@geogab.net",
+      "url": "http://www.geogab.net",
+      "maintainer": true
+    }
+  ],
+  "license": "MIT",
+  "homepage": "http://www.geogab.net",
+  "dependencies": {
+    "ownername/print": "~1.0.0"
+  },
+  "frameworks": "*",
+  "platforms": "*"
 }

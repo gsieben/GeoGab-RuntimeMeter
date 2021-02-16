@@ -2,7 +2,7 @@
  * @file RuntimeMeter.h
  * @author Gabriel Sieben (gsieben@geogab.com)
  * @brief 
- * @version 1.0.4
+ * @version 1.0.0
  * @date 2021-02-11
  * 
  * @copyright Copyright (c) 2021
