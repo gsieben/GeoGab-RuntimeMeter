@@ -18,7 +18,7 @@
 #define XSTR(s) STR(s)
 #define STR(...) #__VA_ARGS__
 
-#define GEOGAB_RM_VERSION "1.0.4"
+#define GEOGAB_RM_VERSION "1.0.0"
 
 enum  {
   RT_ERROR_NONE=0,                        // 0000 0000: Perfect :-)           
