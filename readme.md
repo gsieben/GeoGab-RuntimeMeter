@@ -88,7 +88,7 @@ The *RuntimeMeter* counts everything with 32 bits. That means, in case of micros
 
 In practice these are runtimes up to: 
 
-**milliseconds**: 1,000 milliseconds = 1 second. => `2^32/1000` seconds => 1 hour is known to be (60 seconds * 60 minutes) => Possible runtime: `2^32/1000/60/60` = 1.193 hours
+**Milliseconds**: 1,000 milliseconds = 1 second. => `2^32/1000` seconds => 1 hour is known to be (60 seconds * 60 minutes) => Possible runtime: `2^32/1000/60/60` = 1.193 hours
 
 **Microseconds**: 1,000 microseconds = 1 millisecond => 1,193 h / 1000 = 1.2 hours
 
