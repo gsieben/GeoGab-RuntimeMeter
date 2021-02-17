@@ -131,26 +131,28 @@ The software can be implemented permanently. The resources required are kept wit
 ``#include <GeoGabRuntimeMeter.h>``
 
 ### Create object
-o *RuntimeMeter* [object name] ([number of slots],[measurement type]);
-`RuntimeMeter rtmeter();` // 5 slots, RT_MEASURE_CYCLES by default            
-`RuntimeMeter rtmeter(10, RT_MEASURE_MICROS);` // 10 slots, RT_MEASURE_MICROS         
+`RuntimeMeter [object name] ([number of slots],[measurement type]);`
 
-measurement type: tick: ``RT_MEASURE_CYCLES`` (default) , micros seconds: ``RT_MEASURE_MICROS``, milli seconds: ``RT_MEASURE_MILLIS``
+`RuntimeMeter rtmeter(); // 5 slots, RT_MEASURE_CYCLES by default`
+            
+`RuntimeMeter rtmeter(10, RT_MEASURE_MICROS); // 10 slots, RT_MEASURE_MICROS` 
+
+Measurement Types are: cycles (ticks): ``RT_MEASURE_CYCLES`` (default) , micros seconds: ``RT_MEASURE_MICROS``, milli seconds: ``RT_MEASURE_MILLIS``
 
 ### Measurements
 1. add measurement point:
     **Method**: ``Add();``
     **Parameter**: (string) name of the measurement point
     **Return**: (uint32_t) Runtime of the last measurement. 0 = Error;
-1. end measurement: 
+
+2. end measurement: 
     **Method**: ``Finalize();`` 
     **Parameter**: (bool) true(default) = measure the kernel time, false: = no kernel time. Keep in mind, however, that then somewhere after the code must follow at least a delay(0);.
     **Return**: (char) error number, where 0 = no error, If you use Print(), you can safely ignore the error message. Print gives a hint. 
 
-**Variants**: 
-``rtmeter.add(); // measure point``
+3. **Variant**:  ``rtmeter.add(); // measure point``
 
-*or
+*or*
 
 ``rtmeter.add("name"); // measure point with name (for the following measurement), (default: number of the measurement)``
 
