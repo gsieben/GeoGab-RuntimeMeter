@@ -102,7 +102,7 @@ Here is a little more complex. For this you need to know what a tick is. The tic
 
 We know: 1 Second (s) = 1.000 [1E3] Milliseconds (ms) = 1.000.0000 [1E6] Microseconds (µs) = 1.000.000.000 [1E9] Nanoseconds (ns) = 1.000.000.000 [1E12] Picoseconds (ps)
 
-We also know what frequency our CPU is running at. It is usually given in MHz (megahertz) for µCPUs. This is 1,000 Hz (hertz). 1 Hz is once per second. In our case one tick. In the case of the frequency of the loop, one round. This means that a CPU has the frequency times cycles per second. 
+We also know what frequency our CPU is running at. It is usually given in MHz (megahertz) for µCPUs. This is 1.000 kHz or 1.000.000 Hz (Hertz). 1 Hz is once per second. In our case one tick. In the case of the frequency of the loop, one round. This means that a CPU has the frequency times cycles per second. 
 
 Let's consider an ESP8266 with 80 MHz. In one second, the processor can perform 80,000,000 arithmetic operations (I told you. They're fast!). Hertz (Hz) corresponds to the unit 1/sec. So 1/frequency equals the time for one tick. `1/80.000.000 Hz = 0.000.000.012.5 seconds`. So 12.5 nano seconds pass per tick. 
 
