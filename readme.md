@@ -257,7 +257,7 @@ loop {
 ```
 
 # Installation
-Download the source of my library and unpack it into your libs folder. Include the library with `#define <GeoGab*RuntimeMeter*.h>`. 
+Download the source of my library and unpack it into your libs folder. Include the library with `#define <GeoGabRuntimeMeter.h>`. 
 
 Or use the library dependencies in Visual Studio Code including PlatformIO:
 
