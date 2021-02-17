@@ -54,9 +54,9 @@ The *RuntimeMeter* can measure the runtime in processor cycles, micro seconds an
 
 The RutimeMeter measures how many cycles are brought between the measuring point of a loop pass. In the above example there are three runtimes which are measured. Namely:
 
-o [Runtime1]=[Start]-[Intermediate time]
-o [Runtime2]=[Intermediate]-[End]
-o [Kernel]=within the [End] the kernel runtime is determined. 
+- [Runtime1]=[Start]-[Intermediate time]
+- [Runtime2]=[Intermediate]-[End]
+- [Kernel]=within the [End] the kernel runtime is determined. 
 
 So the total runtime of the code inside a loop is `[Loop]=[Runtime1]+[Runtime2]+[Kernel]`. Any code outside of `[start]` and `[end]` is not considered. If possible, it should only be used for data processing, to falsify the measurement results as little as possible. 
 
