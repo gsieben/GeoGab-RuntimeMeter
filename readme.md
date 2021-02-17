@@ -124,7 +124,7 @@ Conclusion: Even the 17 seconds loop time for an ESP32 with 240 Hz is more than 
 The software can be used for analysis purposes during development. If the program does not use the runtimes further, the code can be left in place, but it is not necessary. It can be removed after the development. This saves a little bit of resources. 
 
 ### For permanent performance evaluation
-The software can be implemented permanently. The resources required are kept within limits. An example can be found in the examples. It is a quick and dirty example web server that lets you retrieve the processor load at any time. The software serves also programs, which permit the loading of strange program code. So the programmer of the foreign program code can observe the influence of his code. Especially for realtime applications this can be very interesting. E.g. the project WLED by Aircookie, which I love very much. 
+The software can be implemented permanently. The resources required are kept within limits. An example can be found in the examples. It is a quick and dirty example web server that lets you retrieve the processor load at any time. The software serves also programs, which permit the loading of strange program code. So the programmer of the foreign program code can observe the influence of his code. Especially for realtime applications this can be very interesting. E.g. the project WLED by Aircoookie , which I love very much. 
 
 ## Instruction
 ### Include
