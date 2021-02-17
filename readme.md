@@ -128,12 +128,12 @@ The software can be implemented permanently. The resources required are kept wit
 
 ## Instruction
 ### Include
-``#include <GeoGab*RuntimeMeter*.h>``
+``#include <GeoGabRuntimeMeter.h>``
 
 ### Create object
 o *RuntimeMeter* [object name] ([number of slots],[measurement type]);
-`*RuntimeMeter* rtmeter();` // 5 slots, RT_MEASURE_CYCLES by default            
-`*RuntimeMeter* rtmeter(10, RT_MEASURE_MICROS);` // 10 slots, RT_MEASURE_MICROS         
+`RuntimeMeter rtmeter();` // 5 slots, RT_MEASURE_CYCLES by default            
+`RuntimeMeter rtmeter(10, RT_MEASURE_MICROS);` // 10 slots, RT_MEASURE_MICROS         
 
 measurement type: tick: ``RT_MEASURE_CYCLES`` (default) , micros seconds: ``RT_MEASURE_MICROS``, milli seconds: ``RT_MEASURE_MILLIS``
 
