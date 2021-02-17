@@ -16,7 +16,7 @@ ESP32, ESP8266
 <img src="./images/printout.png" alt="Print Out Example" height="300"/>
 
 # Example ESP Webserver Screenshot
-Here you can see the difference between an 'ESP32' and 'ESP8266'. Both run on 160 MHz. But the ESP32 shows almost no kernel runtime, because the second CPU does the kernel tasks. 
+Here you can see the difference between an 'ESP32' and 'ESP8266'. Both run on 160 MHz. But the ESP32 shows almost no kernel runtime, because the second CPU does the kernel tasks. Especially you should keep an eye on the loop frequency! 
 <img src="./images/ESP32.gif" alt="Webserver Example EPS32" height="300"/>
 <img src="./images/ESP8266.gif" alt="Webserver Example EPS8266" height="300"/>
 
