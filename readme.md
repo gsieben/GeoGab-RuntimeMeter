@@ -18,8 +18,7 @@ ESP32, ESP8266
 # Example ESP Webserver Screenshot
 Here you can see the difference between an 'ESP32' and 'ESP8266'. Both run on 160 MHz. But the ESP32 shows almost no kernel runtime, because the second CPU does the kernel tasks. Especially you should keep an eye on the loop frequency! 
 
-<img src="./images/ESP32.gif" alt="Webserver Example EPS32" height="300"/>
-<img src="./images/ESP8266.gif" alt="Webserver Example EPS8266" height="300"/>
+<img src="./images/ESP32.gif" alt="Webserver Example EPS32" height="300"/><img src="./images/ESP8266.gif" alt="Webserver Example EPS8266" height="300"/>
 
 ## The effective code
 A `delay(x)` can mean an eternity of doing nothing for the processor. This is because modern microprocessors are fast. Even much faster than many assume. Except for `delay(0)`, which we will come back to later. A good programmer should generally do without `delay(x)` and rather trigger the code based on events. Like the `.print(x)` of this library.
