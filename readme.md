@@ -262,7 +262,7 @@ Download the source of my library and unpack it into your libs folder. Include t
 Or use the library dependencies in Visual Studio Code including PlatformIO:
 
 lib_deps =
-      gsieben/GeoGab RuntimeMeter @ ~1.0.1
+      gsieben/GeoGab RuntimeMeter @ ~1.0.4
 
 
 # License information
