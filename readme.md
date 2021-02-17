@@ -4,17 +4,21 @@
 # Gabriel A. Sieben (Physicist)
 Here is a little code I wrote for my HomeDev Smarthings projects. I thought it could be useful for others too. Have fun. Gabriel :)
 
-# Runtime Meter V 1.0.0
+# Runtime Meter V 1.0.3
 The **RuntimeMeter** measures the runtime of certain sections of the code of a loop. The sections can be defined freely. This is used to estimate the utilization of the CPU. The word estimation means that there can never be a perfect measurement of the code runtime. (Special code excepted.). Only `if()` conditions cause slight runtime differences. The measurement is to be regarded therefore as exact, but not as precise. Because by nature there are runtime fluctuations in every loop pass. 
 
 It is a widespread misconception that microprocessors are always busy. In fact, I argue that in most cases the CPU is far from being busy. It depends decisively on the code whether they are or not. 
 
+## Tested On
+ESP32, ESP8266, ATmega328p 
 
-# Examples Screenshots
+# Examples Printout Screenshot
 <img src="./images/printout.png" alt="Print Out Example" height="300"/>
-<img src="./images/Webserver.png" alt="Webservert Example" height="300"/>
 
-
+# Example ESP Webserver Screenshot
+Here you can see the difference between an 'ESP32' and 'ESP8266'. Both run on 160 MHz. But the ESP32 shows almost no kernel runtime, because the second CPU does the kernel tasks. 
+<img src="./images/ESP32.gif" alt="Webserver Example EPS32" height="300"/>
+<img src="./images/ESP8266.gif" alt="Webserver Example EPS8266" height="300"/>
 
 ## The effective code
 A `delay(x)` can mean an eternity of doing nothing for the processor. This is because modern microprocessors are fast. Even much faster than many assume. Except for `delay(0)`, which we will come back to later. A good programmer should generally do without `delay(x)` and rather trigger the code based on events. Like the `.print(x)` of this library.
@@ -46,9 +50,9 @@ The *RuntimeMeter* brings light into the shadow. The principle looks like this.
     }
 
 ## What we learn from the acquired data
-The *RuntimeMeter* can measure the runtime in processor ticks, micro seconds and milliseconds. The measurement in micro and milliseconds will not be discussed further here, since the principle is the same. They are less precise, but larger runtimes can be measured, which will hardly be needed in practice. More about this later. 
+The *RuntimeMeter* can measure the runtime in processor cycles, micro seconds and milliseconds. The measurement in micro and milliseconds will not be discussed further here, since the principle is the same. They are less precise, but larger runtimes can be measured, which will hardly be needed in practice. More about this later. 
 
-The RutimeMeter measures how many ticks are brought between the measuring point of a loop pass. In the above example there are three runtimes which are measured. Namely:
+The RutimeMeter measures how many cycles are brought between the measuring point of a loop pass. In the above example there are three runtimes which are measured. Namely:
 
 o [Runtime1]=[Start]-[Intermediate time]
 o [Runtime2]=[Intermediate]-[End]
@@ -63,11 +67,12 @@ o In the direct comparison of the run times, one can quickly see which parts of 
 o The frequency of the loop run. And this is especially important for the "without delay method" of programming. Because as said before: Running in the loop to wait for events is no real processor load. At least not as long as you could reach the same if you check the events less often. If the processor is more loaded, the loop frequency will automatically decrease. Which value is a good value, the programmer must decide for his application. E.g. there are applications where a LED display should be operated with 50Hz. If this is not reached, the *RuntimeMeter* will tell you immediately and you can make appropriate code changes. 
 
 ## The runtime fluctuations
-As mentioned above, the runtime measurement is subject to slight fluctuations. Everyone can recognize this already alone by the example programs of this library. This is by no means a programming error of the *RuntimeMeter*. The measurements are accurate, but not precise. The accuracy meets the requirements of the *RuntimeMeter*s. It is used for estimation and not for exact measurement. A few ticks faster or slower certainly do not play a role in the flow of a complex program. If the code must be measured exactly, the *RuntimeMeter* is the wrong choice. You will have to translate the code into machine code. Then decompile it back to assembler, which then has to be studied in more detail. Mostly one does not write such programs therefore into a high-level language but directly into Assembler, which is converted mostly directly into machine code. But this shall not be discussed further here.
+As mentioned above, the runtime measurement is subject to slight fluctuations. Everyone can recognize this already alone by the example programs of this library. This is by no means a programming error of the *RuntimeMeter*. The measurements are accurate, but not precise. The accuracy meets the requirements of the *RuntimeMeter*s. It is used for estimation and not for exact measurement. A few cycles faster or slower certainly do not play a role in the flow of a complex program. If the code must be measured exactly, the *RuntimeMeter* is the wrong choice. You will have to translate the code into machine code. Then decompile it back to assembler, which then has to be studied in more detail. Mostly one does not write such programs therefore into a high-level language but directly into Assembler, which is converted mostly directly into machine code. But this shall not be discussed further here.
 
 There are several reasons why runtime variations occur. In the core it is of course always the same reason. A foreign code is executed outside of the own program, which flows into the run time. This code is on the one hand the RutimeMeter Library itself. Even by tricks this cannot be avoided completely. So the first measuring point initializes the first measurement. That's all that needs to happen. Only the second measuring point determines the runtime of the first. Of course, one could further optimize the RutimeMeter at one or the other point. But you would not gain more knowledge. Because the *RuntimeMeter* has hardly any influence on the fluctuations. The far greater part comes from the kernel. As mentioned above, some system tasks are done immediately. Others wait for the `delay()`. 
 
 To determine the runtime more exactly, brings with the small values of the fluctuations, no realization of use. 
+
 
 ## The implementation
 ## Limitations
@@ -75,11 +80,11 @@ To determine the runtime more exactly, brings with the small values of the fluct
 This has been sufficiently discussed above. Keyword runtime fluctuations. 
 
 ### The length of the runtime measurement is limited
-I consider the possible length of the transit time measurements to be sufficient. If the runtime in ticks is not sufficient, you can use the mircos and millis method, where microseconds and milliseconds are used instead of ticks. For such "long" runtimes it does not matter if they are still calculated in ticks. The limitation is due to a simple fact. I use "only" 32bit variables. I could also use 64Bit. But then they consume more memory and can't be processed as fast. I will not go into this now.
+I consider the possible length of the transit time measurements to be sufficient. If the runtime in cycles is not sufficient, you can use the mircos and millis method, where microseconds and milliseconds are used instead of cycles. For such "long" runtimes it does not matter if they are still calculated in cycles. The limitation is due to a simple fact. I use "only" 32bit variables. I could also use 64Bit. But then they consume more memory and can't be processed as fast. I will not go into this now.
 
 An unsigned 32 bit variable (uint32_t) can store number up to `2^32=4.294.967.296`. At `2^32` a rollover occurs. That means we would need one bit more (which does not exist). Therefore with the value `uint32_t x=2^32+1` the variable `x` starts again at zero. 
 
-The *RuntimeMeter* counts everything with 32 bits. That means, in case of microseconds, it can store a maximum of 4.294.967.296 microseconds. And this restriction is valid for the single measurement as well as for the total runtime measurement. So all measured values added together must not overwrite 2^32 units (ticks, microseconds, milliseconds). 
+The *RuntimeMeter* counts everything with 32 bits. That means, in case of microseconds, it can store a maximum of 4.294.967.296 microseconds. And this restriction is valid for the single measurement as well as for the total runtime measurement. So all measured values added together must not overwrite 2^32 units (cycles, microseconds, milliseconds). 
 
 In practice these are runtimes up to: 
 
@@ -92,20 +97,26 @@ nanosecond is usually more than 1 CPU tick. (e.g. at 160MHz one tick = 12.5 nano
 
 **Picoseconds**: As above. 
 
-**CPU Ticks**: (recommended setting):
+**CPU cycles**: (recommended setting):
 Here is a little more complex. For this you need to know what a tick is. The tick is a CPU clock unit. Usually a processor can do one calculation step per clock unit (tick). I will not go into more detail now. 
 
 We know: 1 Second (s) = 1.000 [1E3] Milliseconds (ms) = 1.000.0000 [1E6] Microseconds (µs) = 1.000.000.000 [1E9] Nanoseconds (ns) = 1.000.000.000 [1E12] Picoseconds (ps)
 
-We also know what frequency our CPU is running at. It is usually given in MHz (megahertz) for µCPUs. This is 1,000 Hz (hertz). 1 Hz is once per second. In our case one tick. In the case of the frequency of the loop, one round. This means that a CPU has the frequency times ticks per second. 
+We also know what frequency our CPU is running at. It is usually given in MHz (megahertz) for µCPUs. This is 1,000 Hz (hertz). 1 Hz is once per second. In our case one tick. In the case of the frequency of the loop, one round. This means that a CPU has the frequency times cycles per second. 
 
 Let's consider an ESP8266 with 80 MHz. In one second, the processor can perform 80,000,000 arithmetic operations (I told you. They're fast!). Hertz (Hz) corresponds to the unit 1/sec. So 1/frequency equals the time for one tick. `1/80.000.000 Hz = 0.000.000.012.5 seconds`. So 12.5 nano seconds pass per tick. 
 
-So with 2^32 ticks the time span can be 2^32*12.5 nano seconds:   
+So with 2^32 cycles the time span can be 2^32*12.5 nano seconds:   
 
-CPU Frequency: xxx MHz -> xxx ticks per µs =>.
+CPU Frequency: xxx MHz -> xxx cycles per µs =>.
+
 [**80 MHz**]: ``2^32=4,294,967,296`` => ``4,294,967,296/80`` => ~ ``53,687,091 µs`` => ~ ``53,687 ms`` => ~ ``53 sec``
+
 [**160 MHz**]: ``2^32=4,294,967,296`` => ``4,294,967,296/160`` => ~ ``26,843,545 µs`` => ~ ``26,843 ms`` => ~ ``26 sec``  
+
+[**240 MHz**]: ``2^32=4,294,967,296`` => ``4,294,967,296/240`` => ~ ``7.895.697 µs`` => ~ ``17.895 ms`` => ~ ``17 sec``
+
+Conclusion: Even the 17 seconds loop time for an ESP32 with 240 Hz is more than sufficient. Because 17 seconds is not a reasonable loop time anyway. With this, the system would certainly no longer work well. 
 
 
 ## Application
@@ -121,10 +132,10 @@ The software can be implemented permanently. The resources required are kept wit
 
 ### Create object
 o *RuntimeMeter* [object name] ([number of slots],[measurement type]);
-`*RuntimeMeter* rtmeter();` // 5 slots, RT_MEASURE_TICKS by default            
+`*RuntimeMeter* rtmeter();` // 5 slots, RT_MEASURE_CYCLES by default            
 `*RuntimeMeter* rtmeter(10, RT_MEASURE_MICROS);` // 10 slots, RT_MEASURE_MICROS         
 
-measurement type: tick: ``RT_MEASURE_TICKS`` (default) , micros seconds: ``RT_MEASURE_MICROS``, milli seconds: ``RT_MEASURE_MILLIS``
+measurement type: tick: ``RT_MEASURE_CYCLES`` (default) , micros seconds: ``RT_MEASURE_MICROS``, milli seconds: ``RT_MEASURE_MILLIS``
 
 ### Measurements
 1. add measurement point:
@@ -207,10 +218,13 @@ etc...
 The error adds up: there are the following errors:
 
 **0**: 0000 0000: Perfect :-)           
+
 **1**: 0000 0001: More measurement points than slots. Please reserve more slots (*RuntimeMeter* rtmeter(xxx);)   
 **2**: 0000 0010: Nothing was measured. You need at least one measurement slot. Add(); and the Finalize();
+
 **4**: 0000 0100: Before the Finalize, Print() makes no sense, because the data has not yet been collected completely. 
-**8**: 0000 1000: The collection mode is unknown. Please choose one of the following values: RT_MEASURE_TICKS, RT_MEASURE_MICROS, RT_MEASURE_MILLIS, RT_MEASURE_SECS
+
+**8**: 0000 1000: The collection mode is unknown. Please choose one of the following values: RT_MEASURE_CYCLES, RT_MEASURE_MICROS, RT_MEASURE_MILLIS, RT_MEASURE_SECS
 
 Example: Error *9* (*1+8*) => 0000 1001
 
@@ -244,6 +258,11 @@ loop {
 
 # Installation
 Download the source of my library and unpack it into your libs folder. Include the library with `#define <GeoGab*RuntimeMeter*.h>`. 
+
+Or use the library dependencies in Visual Studio Code including PlatformIO:
+
+lib_deps =
+      gsieben/GeoGab RuntimeMeter @ ~1.0.1
 
 
 # License information

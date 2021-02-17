@@ -3,7 +3,7 @@
  * @author Gabriel Sieben (gsieben@geogab.net)
  * @brief Runtime... Testes on ESP8266
  * 
- * @version 1.0.1
+ * @version 1.0.3
  * @date 2021-02-11
  * 
  * @copyright Copyright (c) 2021
@@ -245,7 +245,7 @@ void RuntimeMeter::CalcRuntime(uint32_t &target) {
 void RuntimeMeter::GetStamp(uint32_t &var) {
     switch ( Mode ){
          case RT_MEASURE_TICKS :
-            var=esp_get_cycle_count();
+            var=ESP.getCycleCount;
             break;
          case RT_MEASURE_MICROS :
             var=micros();

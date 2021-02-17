@@ -48,7 +48,7 @@
 
 		.page75 {
 			margin: 0 auto;
-			width: 75%;
+			width: 60%;
 			text-align: center;;
 			box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.26);	
 			padding: 10px;
@@ -57,7 +57,8 @@
 		}
 
 		#FileModeButton {
-			width: 200px;
+			text-align: center;
+			width: 180px;
 			position: absolute;
 			margin: 0px auto;
 			animation: filemod 1s infinite alternate linear;
@@ -68,30 +69,30 @@
 			to { background-color: rgb(143, 33, 0);}
 		}
 
-		table {width: 100%;}
-
 		table {
-			table-layout: fixed;
 			margin: 0px auto;
-			background-color: transparent;
-			border-spacing: 3px 3px; 
+			text-align: left;
+			padding-bottom: 10px;
 		}
 
-		th, td {
-			background-color: rgb(231, 231, 233);
-			border: 2px solid #3333;
-			box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.26);
-			padding: 4px;
+		.tab {width: 40%;}
+
+		.tab {
+			table-layout: fixed;
+			background-color: transparent;
+			border-spacing: 3px 3px; 
 		}
 
 		.bar {
 			display:inline-block;
 			width: 98%;
-			box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.26);
+			padding:0;
 		}
 
 		#p0, #p1, #p2, #p3 {
 			display:inline-block;
+			margin: 0;
+			padding: 0;
 			width: 0%;
 		}
 
@@ -108,10 +109,8 @@
 			background-color: #b51F5E;
 		}
 
-		.s1 { width: 30%;}
-		.s2 { width: 10%;}
-		.s3 { width: 20%;}
-		.s4 {  }
+		.s1 { width: 20px;}
+
 
 	</style>
 
@@ -119,8 +118,9 @@
 		var DevIp;
 		var burl;
 		var loc = false;
- 
-		function OnLoad(){
+		var idar;
+		
+		function OnLoad() {
 			FileMode();		// File Mode for the Development
 			LiveUpdate();
 			!loc && window.setInterval(LiveUpdate, 1000);		// pull the data every second	
@@ -129,11 +129,11 @@
 		function FileMode() {
 			if (window.location.protocol == "file:") {
 				loc = true;
-				var buffer=""
+				var buffer="";
 				locip = localStorage.getItem('locIp');
-					buffer+="<b>Development Mode:</b><br><button onclick='NewIP()'>Set new IP</button>"
-				if (typeof LiveUpdate === 'function') {     // Is function LiveUpdate() there? -> Add Manual Refresh Button
-					buffer+="</b><button onclick=' LiveUpdate()'>Manual Refresh</button>"
+					buffer+="<b>Development Mode:</b><br><button onclick='NewIP()'>Set new IP</button>";
+				if (typeof LiveUpdate === 'function') {
+					buffer+="<br><button onclick=' LiveUpdate()'>Manual Refresh</button><input type='checkbox' onclick='AutoRefresh(this)'>Auto</input>";
 				}
 				if (!locip){
 					locip = prompt("Development Mode: Please enter the device IP-Adress (RuntimeMeter-Example-Code)!");
@@ -143,25 +143,27 @@
 			}
 		}
 
-		function LiveUpdate(){
+		function LiveUpdate() {
 			url = loc ? `http://${locip}/json`:`/json`;
 			fetch(url)
 			.then( (resp) => {return resp.json();})
 			.then( (obj) => {						
 				// Create Table
 				document.getElementById("CF").innerHTML=`${obj.CPUf} MHz`;
-				let buff="<table><tr><th class='s1'>Name</th><th class='s2'>Legende</th><th class='s3'>Runtime</th><th class='s4'>Percentage</th></tr>";
+				document.getElementById("DT").innerHTML=`${obj.Device}`;
+				if(obj.CPUTemp) document.getElementById("TEMP").innerHTML=`${obj.CPUTemp.toFixed(2)} C°`;
+				let buff="<table class='tab'><tr><th class='s1'></th><th class='s2'>Name</th><th class='s3'>Runtime</th><th class='s4'>Percentage</th></tr>";
 				let OverallRT=obj.Runtime;
 				let totalrt=0;
 				for(var i=0;i<obj.no;i++) {
 					let per=(obj.slots[i].Runtime/OverallRT*100);
-					buff+=`<tr><td> ${obj.slots[i].Name}</td><td id='b${i}'></td><td>${obj.slots[i].Runtime}</td><td>${per.toFixed(2)} %</td></tr>`; 
+					buff+=`<tr><td id='b${i}'></td><td>${obj.slots[i].Name}</td><td>${obj.slots[i].Runtime}</td><td>${per.toFixed(2)} %</td></tr>`; 
 					document.getElementById(`p${i}`).innerHTML=per.toFixed(2);
-					document.getElementById(`p${i}`).style.width=`${per}%`
+					document.getElementById(`p${i}`).style.width=`${per}%`;
 					totalrt+=obj.slots[i].Runtime;
 				}
 
-				buff+=`<tr><td>Overall</td><td></td><td>${totalrt}</td><td>100 %</td></tr>`; 
+				buff+=`<tr><td></td><td>Overall</td><td>${totalrt}</td><td>100 %</td></tr>`; 
 				buff+="</table>";
 				document.getElementById("LF").innerHTML=`${(obj.CPUf*1000000/totalrt).toFixed(2)} Hz`;
 				document.getElementById("list").innerHTML=buff;
@@ -173,12 +175,21 @@
 		function NewIP() {
 			localStorage.removeItem('locIp');
 			FileMode();
+			LiveUpdate();
 		}
 
+		function AutoRefresh (check) {
+			if(check.checked == true) {
+				idar = window.setInterval(LiveUpdate, 1000);
+			} else {
+				window.clearInterval(idar);
+
+			}
+		}
 	</script>		
 </head>
 
-<body onload="OnLoad()">
+<body onload="OnLoad();">
 	<header>
 		<div id="FileModeButton"></div>
 		<svg class="logobox"><use xlink:href="#GeoGab" /></svg>
@@ -187,15 +198,18 @@
 		<div class="page75">
 			<h1>Runtime Meter Example Code</h1>
 			<h2>by Gabriel A. Sieben</h2>
-			<div>CPU Frequency:<span id="CF"></span></div>
-			<div>Loop Frequency:<span id="LF"></span></div>
-			<a id="source" href="" target="_blank">Json Data Source</a>
+			<table>
+				<tr><td>CPU Frequency:</td><td id="CF"></td></tr>
+				<tr><td>Loop Frequency:</td><td id="LF"></td></tr>
+				<tr><td>Device Type:</td><td id="DT"></td></tr>
+				<tr><td>CPU Temperature:</td><td id="TEMP"></td></tr>
+			</table>
+
+			<a id="source" href="" target="_blank">See Json Data Source</a>
 			<br><br>
-			<div class="bar"><div id="p0"></div><div id="p1"></div><div id="p2"></div><div id="p3"></div></div>
+			<div class="bar"><div id="p0"></div><div id="p1"></div><div id="p2"></div><div id="p3"></div></div>		<!-- Thats the bar -->
 			<br><br>
 			<div id="list">loading...</div>	
-
-
 
 		</div >		
 	</main>

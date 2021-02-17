@@ -1,8 +1,8 @@
 /**
  * @file RuntimeMeterExample.cpp
  * @author Gabriel Sieben (gsieben@geogab.net)
- * @brief This is a quck and dirty example for a webserver integration. 
- * @version 0.1
+ * @brief This is a qiuck and dirty example for a webserver integration (ESP31 & ESP8266)
+ * @version 1.0.2
  * @date 2021-02-14
  * 
  * @copyright Copyright (c) 2021
@@ -13,7 +13,11 @@
 
 //RuntimeMeter rtmeter(3,RT_MEASURE_MICROS);          // 3 Slots but measure in micro seconds instead of cpu ticks (RT_MEASURE_TICKS) which is default. This is less accurate but longer time intervals can be measured.
 RuntimeMeter rtmeter(5);
-ESP8266WebServer server(80);
+#ifdef ESP8266
+  ESP8266WebServer server(80);
+#elif ESP32
+  WebServer server(80);
+#endif
 
 // Global Variables
 #define MAXSLOTS 5
@@ -33,7 +37,7 @@ void setup() {
   Serial.begin(115200);
   Serial.println("\r\n### G e o G a b ###");
 
-  WiFi.begin("Your Wifi Router", "Wifi Password");     // Please insert your network settings
+  WiFi.begin("xxxxxxxxxxxxx", "xxxxxxxxxxxxx");     // Please insert your network settings!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
   
   Serial.print("Connecting to WiFi: ");
   while (WiFi.status() != WL_CONNECTED) {       // Wait for the WiFi connection
@@ -48,6 +52,7 @@ void setup() {
   
   server.on("/", SendIndex);                    //Associate the handler function to the path
   server.on("/json", JsonAnswer);
+  server.onNotFound(NotFound);
   server.begin();                               //Start Webserver
 }
 
@@ -104,8 +109,15 @@ void JsonAnswer() {
   // Prepare Data
   StaticJsonDocument<512> jout;
   jout["no"]=data.No;
-  jout["CPUf"]=data.CPUf;
+  //jout["CPUf"]=data.CPUf;
+  jout["CPUf"]=ESP.getCpuFreqMHz();
   jout["Runtime"]=data.Runtime;
+  #ifdef ESP8266
+  jout["Device"]="ESP8266";
+  #elif ESP32
+  jout["CPUTemp"]=temperatureRead();    // Just added that for fun. According to the kernel source, this is undocumented.
+  jout["Device"]="ESP32";
+  #endif
   JsonArray slots = jout.createNestedArray("slots");
 
   for (uint8_t i=0;i<data.No;i++) {
@@ -134,3 +146,7 @@ void JsonAnswer() {
 void SendIndex() {
   server.send(200, "text/html", MAIN_page);
 } 
+
+void NotFound(){
+  server.send(404, "text/plain", "404: Not found"); // Send HTTP status 404 (Not Found) when there's no handler for the URI in the request
+}
