@@ -17,18 +17,18 @@
  * @brief Runtime Meter: Measures the time intervals between markers.
  * 
  */
-RuntimeMeter::RuntimeMeter () :  mpslots (5), NoOfSlots (5), Mode (RT_MEASURE_TICKS) {Init();} 
+RuntimeMeter::RuntimeMeter () :  mpslots (5), NoOfSlots (5), Mode (RT_MEASURE_CYCLES) {Init();} 
 /**
  * @brief Runtime Meter: Measures the time intervals between markers.
  * 
  * @param size_ Set the Number of measurepoints you whant to measure. 
  */
-RuntimeMeter::RuntimeMeter (uint8_t size_)  : mpslots (size_), NoOfSlots (size_), Mode (RT_MEASURE_TICKS) {Init();} 
+RuntimeMeter::RuntimeMeter (uint8_t size_)  : mpslots (size_), NoOfSlots (size_), Mode (RT_MEASURE_CYCLES) {Init();} 
 /**
  * @brief Runtime Meter: Measures the time intervals between markers.
  * 
  * @param size_ Set the Number of measurepoints you whant to measure. 
- * @param Mode_ Select a measure mode: In Ticks: RT_MEASURE_TICKS, In Micros Secs: RT_MEASURE_MICROS, In Milli Secs: RT_MEASURE_MILLIS
+ * @param Mode_ Select a measure mode: In Ticks: RT_MEASURE_CYCLES, In Micros Secs: RT_MEASURE_MICROS, In Milli Secs: RT_MEASURE_MILLIS
  */
 RuntimeMeter::RuntimeMeter (uint8_t size_, uint8_t Mode_)  :  mpslots (size_), NoOfSlots (size_), Mode (Mode_) {Init();} 
 
@@ -136,7 +136,7 @@ bool RuntimeMeter::Finalize(bool kernel) {
 
     /* Loop Frequence in Herz (1/sec) multiplied by 10  */
     switch ( Mode ){
-        case RT_MEASURE_TICKS :
+        case RT_MEASURE_CYCLES :
         loop.Frequence=F_CPU/loop.Runtime;               // CPU Clock = Ticks per seccond e.g. [80 HHz] = 80.000.000 Ticks per Second
         break;
         case RT_MEASURE_MICROS :
@@ -244,8 +244,8 @@ void RuntimeMeter::CalcRuntime(uint32_t &target) {
  */
 void RuntimeMeter::GetStamp(uint32_t &var) {
     switch ( Mode ){
-         case RT_MEASURE_TICKS :
-            var=ESP.getCycleCount;
+         case RT_MEASURE_CYCLES :
+            var=ESP.getCycleCount();
             break;
          case RT_MEASURE_MICROS :
             var=micros();

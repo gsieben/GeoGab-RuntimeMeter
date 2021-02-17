@@ -1,6 +1,6 @@
 {
   "name": "GeoGab RuntimeMeter",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Measures the runtime of different program parts and core codes of a microprocessor to estimate its utilization.",
   "keywords": ["runtime", "meter", "CPU load", "cpuload", "idle time", "idletime", "code analysis", "measurement"],
   "repository":
