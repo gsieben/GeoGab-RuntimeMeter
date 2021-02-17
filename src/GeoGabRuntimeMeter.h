@@ -2,7 +2,7 @@
  * @file RuntimeMeter.h
  * @author Gabriel Sieben (gsieben@geogab.com)
  * @brief 
- * @version 1.0.3
+ * @version 1.0.4
  * @date 2021-02-11
  * 
  * @copyright Copyright (c) 2021
@@ -18,7 +18,7 @@
 #define XSTR(s) STR(s)
 #define STR(...) #__VA_ARGS__
 
-#define GEOGAB_RM_VERSION "1.0.3"
+#define GEOGAB_RM_VERSION "1.0.4"
 
 enum  {
   RT_ERROR_NONE=0,                        // 0000 0000: Perfect :-)           

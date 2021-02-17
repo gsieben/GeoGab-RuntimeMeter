@@ -1,6 +1,9 @@
 # Future Release
 - Seaching for the support of Arduino ATmega328P. Can't find a way to get the cpu cycles. All other problems can be fixed. 
 
+# Version 1.0.4
+- Minor Bugfix
+
 # Version 1.0.3
 - Added ESP32 support to the "EPS Webserver Example"
 - Small changes in the readme.md
