@@ -4,7 +4,7 @@
 # Gabriel A. Sieben (Physicist)
 Here is a little code I wrote for my HomeDev Smarthings projects. I thought it could be useful for others too. Have fun. Gabriel :)
 
-# Runtime Meter V 1.0.4
+# Runtime Meter V 1.0.5
 The **RuntimeMeter** measures the runtime of certain sections of the code of a loop. The sections can be defined freely. This is used to estimate the utilization of the CPU. The word estimation means that there can never be a perfect measurement of the code runtime. (Special code excepted.). Only `if()` conditions cause slight runtime differences. The measurement is to be regarded therefore as exact, but not as precise. Because by nature there are runtime fluctuations in every loop pass. 
 
 It is a widespread misconception that microprocessors are always busy. In fact, I argue that in most cases the CPU is far from being busy. It depends decisively on the code whether they are or not. 
@@ -239,7 +239,7 @@ loop {
   rtmeter.add("Measurement 1"); // Starts the measurement with a name
     /*... this code will be measured */
 
-  rtmeter.add("Measurement 2); // Sets a measurement point with a name
+  rtmeter.add("Measurement 2"); // Sets a measurement point with a name
     /*... this code will be measured */
 
   uint16 last runtime=rtmeter.add("Measurement 3"); // Sets a measurement point with a name and writes the last runtime into the variable last
@@ -264,7 +264,7 @@ Download the source of my library and unpack it into your libs folder. Include t
 Or use the library dependencies in Visual Studio Code including PlatformIO:
 
 lib_deps =
-      gsieben/GeoGab RuntimeMeter @ ~1.0.4
+      gsieben/GeoGab RuntimeMeter @ ~1.0.5
 
 
 # License information

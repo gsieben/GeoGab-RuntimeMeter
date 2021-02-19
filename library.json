@@ -1,6 +1,6 @@
 {
   "name": "GeoGab RuntimeMeter",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Measures the runtime of different program parts and core codes of a microprocessor to estimate its utilization.",
   "keywords": ["runtime", "meter", "CPU load", "cpuload", "idle time", "idletime", "code analysis", "measurement"],
   "repository":
@@ -13,13 +13,29 @@
     {
       "name": "Gabriel A. Sieben",
       "email": "gsieben@geogab.net",
-      "url": "http://www.sieben.cl"
+      "url": "http://www.sieben.cl",
+      "maintainer": true
+    }
+  ],
+  "examples": [
+    {
+        "name": "ESP Webserver",
+        "base": "examples/ESP Webserver",
+        "files": [
+            "source/index.html",
+            "src/Webserver.cpp",
+            "src/Webserver.h",
+            "platformio.ini"
+          ]
     },
     {
-      "name": "Gabriel A. Sieben",
-      "email": "gsieben@geogab.net",
-      "url": "http://www.geogab.net",
-      "maintainer": true
+        "name": "Print Serial",
+        "base": "examples/Print Serial",
+        "files": [
+          "src/PrintSerial.cpp", 
+          "src/PrintSerial.h",
+          "platformio.ini"
+        ]
     }
   ],
   "license": "MIT",

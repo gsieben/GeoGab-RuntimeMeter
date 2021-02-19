@@ -1,5 +1,4 @@
-# Future Release
-- Seaching for the support of Arduino ATmega328P. Can't find a way to get the cpu cycles. All other problems can be fixed. 
+# Version 1.0.5
 
 # Version 1.0.4
 - Minor Bugfix
