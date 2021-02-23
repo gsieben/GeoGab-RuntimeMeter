@@ -1,4 +1,5 @@
 # Version 1.0.5
+- Renaming (removed spaces in lib name)
 
 # Version 1.0.4
 - Minor Bugfix
