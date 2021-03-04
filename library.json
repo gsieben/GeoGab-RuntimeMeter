@@ -22,6 +22,7 @@
         "name": "ESP Webserver",
         "base": "examples/ESP Webserver",
         "files": [
+			"source/index.html",
             "src/Webserver.cpp",
             "src/Webserver.h",
             "platformio.ini"
