@@ -3,8 +3,8 @@
  * @author Gabriel Sieben (gsieben@geogab.net)
  * @brief Runtime... Testes on ESP8266
  * 
- * @version 1.0.5
- * @date 2021-02-11
+ * @version 1.0.6
+ * @date 2023-10-29
  * 
  * @copyright Copyright (c) 2021
  * 

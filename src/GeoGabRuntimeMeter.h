@@ -2,8 +2,8 @@
  * @file RuntimeMeter.h
  * @author Gabriel Sieben (gsieben@geogab.com)
  * @brief 
- * @version 1.0.5
- * @date 2021-02-11
+ * @version 1.0.6
+ * @date 2023-10-29
  * 
  * @copyright Copyright (c) 2021
  * 
@@ -14,6 +14,7 @@
 #define GeoGabRuntimeMeter_h
 
 #include <Arduino.h>
+#include <vector>
 
 #define XSTR(s) STR(s)
 #define STR(...) #__VA_ARGS__
@@ -39,9 +40,8 @@ class RuntimeMeter {
   public:
     /* Constructors */
     RuntimeMeter ();
-    RuntimeMeter (uint8_t size_);  // Pups pups pups
-    RuntimeMeter (uint8_t size_, uint8_t Mode_);    // Dadada
-
+    RuntimeMeter (uint8_t size_); 
+    RuntimeMeter (uint8_t size_, uint8_t Mode_); 
     
     /* Prototypes */
     uint32_t Add(const String &name="");
